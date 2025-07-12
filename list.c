@@ -7,20 +7,19 @@ const struct list_err LIST_ERR_ALLOC = { LIST_ERR_CODE_ALLOC, "couldn't allocate
 const struct list_err LIST_ERR_EMPTY = { LIST_ERR_CODE_EMPTY, "list is empty"};
 
 struct list_err list_init(struct list **self) {
-    *self = malloc(sizeof(struct list));
+    *self = calloc(1, sizeof(struct list));
     if (*self == nullptr) {
         return LIST_ERR_ALLOC;
     }
-    **self = (struct list){ .front = nullptr, .back = nullptr };
     return LIST_OK;
 }
 
 struct list_err node_init(struct node **self, void *elem) {
-    *self = malloc(sizeof(struct node));
+    *self = calloc(1, sizeof(struct node));
     if (*self == nullptr) {
         return LIST_ERR_ALLOC;
     }
-    **self = (struct node){ .elem = elem, .front = nullptr, .back = nullptr };
+    (*self)->elem = elem;
     return LIST_OK;
 }
 
